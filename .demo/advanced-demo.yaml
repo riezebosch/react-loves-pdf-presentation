@@ -1,0 +1,35 @@
+title: 'Advanced Demo: TypeScript Function Walkthrough'
+description: A guided demo showing how to add and highlight a new function in a TypeScript file, with themed slides and VS Code integration.
+version: 2
+demos:
+  - title: Introduction Slide
+    description: Display the opening slide to introduce the advanced demo and set the initial theme.
+    steps:
+      - action: setTheme
+        theme: Default Dark Modern
+      - action: openSlide
+        path: .demo/slides/advanced-start.md
+  - title: Implement multiply() in math.ts
+    description: Switch to a light theme, open math.ts, and highlight where to add the multiply() function. Also, show the file in the explorer.
+    steps:
+      - action: setTheme
+        theme: Default Light Modern
+      - action: open
+        path: math.ts
+      - action: executeVSCodeCommand
+        command: workbench.files.action.showActiveFileInExplorer
+      - action: highlight
+        path: math.ts
+        startPlaceholder: 'export function add(x: number, y: number): number {'
+        endPlaceholder: '}'
+  - title: Review and Recap
+    description: Show a slide summarizing the steps taken and what was accomplished in the demo.
+    steps:
+      - action: setTheme
+        theme: Default Dark Modern
+      - action: openSlide
+        path: .demo/slides/advanced-end.md
+  - title: Reset Theme
+    description: Return the editor theme to its default state to clean up after the demo.
+    steps:
+      - action: unsetTheme
