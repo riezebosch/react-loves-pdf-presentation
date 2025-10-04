@@ -1,0 +1,20 @@
+title: react app
+version: 2
+demos:
+  - title: Introduction Slide
+    steps:
+      - action: setTheme
+        theme: Default Light Modern
+      - action: openSlide
+        path: .demo/slides/advanced-start.md
+  - title: show react app
+    steps:
+      - action: executeTerminalCommand
+        command: npm install && npm run dev
+        terminalId: vite
+        autoExecute: true
+      - action: waitForTimeout
+        timeout: 1000
+      - action: openWebsite
+        url: http://localhost:5173/
+        openInVSCode: false
