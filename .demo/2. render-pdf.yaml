@@ -57,7 +57,7 @@ demos:
           };
 
           export default Viewer;
-  - title: add Document to App
+  - title: use Viewer in App
     steps:
       - action: open
         path: src/App.tsx
