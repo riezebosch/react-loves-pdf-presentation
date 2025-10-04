@@ -1,0 +1,22 @@
+title: reset
+version: 2
+demos:
+  - title: stop vite
+    steps:
+      - action: executeTerminalCommand
+        command: q
+        terminalId: vite
+  - title: reset source files
+    steps:
+      - action: executeTerminalCommand
+        command: git checkout -- . ':!.demo' && git clean -fd . ':!.demo'
+        terminalId: git
+  - title: close terminals
+    steps:
+      - action: closeTerminal
+        terminalId: vite
+      - action: closeTerminal
+        terminalId: npm
+      - action: closeTerminal
+        terminalId: git
+  

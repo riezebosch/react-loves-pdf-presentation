@@ -1,4 +1,4 @@
-title: react ❤️ pdf
+title: create pdf in react
 description: A guided demo showing how to add and highlight a new function in a TypeScript file, with themed slides and VS Code integration.
 version: 2
 demos:
@@ -29,18 +29,11 @@ demos:
       - action: executeTerminalCommand
         command: npm install @react-pdf/renderer --save --prefer-offline
         terminalId: npm
-  - title: implement PDF Viewer in App.tsx
+  - title: create Document
     steps:
-      - action: open
-        path: src/App.tsx
-      - action: executeVSCodeCommand
-        command: workbench.files.action.showActiveFileInExplorer
-      - action: replace
-        path: src/App.tsx
-        insertTypingMode: line-by-line
-        position: start:end
+      - action: create
+        path: src/Document.tsx
         content: |+
-          import React from 'react';
           import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
           // Create styles
@@ -69,24 +62,32 @@ demos:
               </Page>
             </Document>
           );
-      - action: insert
+
+          export default MyDocument;
+      - action: open
+        path: src/Document.tsx
+      
+  - title: add Document to App
+    steps:
+      - action: open
+        path: src/App.tsx
+      - action: executeVSCodeCommand
+        command: workbench.files.action.showActiveFileInExplorer
+      - action: replace
         path: src/App.tsx
         insertTypingMode: line-by-line
-        position: end
-        content: |+
+        position: start:end
+        content: |
+          import { PDFViewer } from '@react-pdf/renderer';
+          import MyDocument from './Document';
 
           const App = () => (
-              <PDFViewer style={{width: '100vw', height: '100vh'}}>
-                <MyDocument />
-              </PDFViewer>
-          );
+            <PDFViewer style={{ width: '100vw', height: '100vh' }}>
+              <MyDocument />
+            </PDFViewer>
+          )
 
-          export default App;
-      - action: insert
-        path: src/App.tsx
-        position: 3
-        content: |+
-          import { PDFViewer } from '@react-pdf/renderer';
+          export default App     
   - title: (optional) fix deps
     steps:
       - action: executeTerminalCommand
@@ -94,25 +95,4 @@ demos:
         terminalId: vite
       - action: executeTerminalCommand
         command: npm ci && npm run dev
-        terminalId: vite
-  - title: reset source files
-    steps:
-      - action: executeTerminalCommand
-        command: q
-        terminalId: vite
-      - action: executeTerminalCommand
-        command: git checkout -- . ':!.demo'
-        terminalId: vite
-      - action: closeTerminal
-        terminalId: vite
-      - action: closeTerminal
-        terminalId: npm
-  - title: Review and Recap
-    description: Show a slide summarizing the steps taken and what was accomplished in the demo.
-    steps:
-      - action: openSlide
-        path: .demo/slides/advanced-end.md
-  - title: Reset Theme
-    description: Return the editor theme to its default state to clean up after the demo.
-    steps:
-      - action: unsetTheme
+        terminalId: vite  
