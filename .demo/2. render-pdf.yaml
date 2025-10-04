@@ -1,0 +1,78 @@
+title: render pdf in browser
+version: 2
+demos:
+  - title: install react-pdf
+    steps:
+      - action: executeTerminalCommand
+        command: npm install react-pdf react-use --prefer-offline
+        terminalId: npm
+        autoExecute: true
+      - action: waitForTimeout
+        timeout: 1000
+  - title: create Viewer
+    steps:
+      - action: create
+        path: src/Viewer.tsx
+      - action: open
+        path: src/Viewer.tsx
+      - action: insert
+        path: src/Viewer.tsx
+        insertTypingMode: line-by-line
+        position: start
+        content: |+
+          import { useState } from 'react';
+          import { pdf } from '@react-pdf/renderer';
+          import * as ReactPDF from 'react-pdf';
+          import { useAsync } from 'react-use';
+          import 'react-pdf/dist/Page/TextLayer.css';
+          import 'react-pdf/dist/Page/AnnotationLayer.css';
+          import MyDocument from './Document';
+
+          ReactPDF.pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+            'pdfjs-dist/build/pdf.worker.min.mjs',
+            import.meta.url,
+          ).toString();
+
+          const Viewer = () => {
+            const [numPages, setNumPages] = useState(1);
+            const render = useAsync(async () => {
+              const blob = await pdf(<MyDocument />).toBlob();
+              const url = URL.createObjectURL(blob);
+
+              return url;
+            }, []);
+
+            return (
+              <ReactPDF.Document
+                file={render.value}
+                onLoadSuccess={(document) => {
+                  setNumPages(document.numPages);
+                }}
+              >
+                {Array.from({ length: numPages }, (_, index) => (
+                  <ReactPDF.Page key={index + 1} pageNumber={index + 1} />
+                ))}
+              </ReactPDF.Document>
+            );
+          };
+
+          export default Viewer;
+  - title: add Document to App
+    steps:
+      - action: open
+        path: src/App.tsx
+      - action: executeVSCodeCommand
+        command: workbench.files.action.showActiveFileInExplorer
+      - action: replace
+        path: src/App.tsx
+        insertTypingMode: line-by-line
+        position: start:end
+        content: |
+          import Viewer from "./Viewer"
+
+          const App = () => (
+            <Viewer />
+          )
+
+          export default App  
+ 
