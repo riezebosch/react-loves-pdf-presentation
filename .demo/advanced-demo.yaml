@@ -19,12 +19,17 @@ demos:
       - action: openWebsite
         url: http://localhost:5173/
         openInVSCode: false
+  - title: show @react-pdf/renderer
+    steps:
+      - action: openWebsite
+        url: https://react-pdf.org/
+        openInVSCode: true
   - title: install @react-pdf/renderer
     steps:
       - action: executeTerminalCommand
-        command: npm install @react-pdf/renderer --save
+        command: npm install @react-pdf/renderer --save --prefer-offline
         terminalId: npm
-  - title: Implement PDF Viewer in App.tsx
+  - title: implement PDF Viewer in App.tsx
     steps:
       - action: open
         path: src/App.tsx
@@ -93,7 +98,15 @@ demos:
   - title: reset source files
     steps:
       - action: executeTerminalCommand
+        command: q
+        terminalId: vite
+      - action: executeTerminalCommand
         command: git checkout -- . ':!.demo'
+        terminalId: vite
+      - action: closeTerminal
+        terminalId: vite
+      - action: closeTerminal
+        terminalId: npm
   - title: Review and Recap
     description: Show a slide summarizing the steps taken and what was accomplished in the demo.
     steps:
