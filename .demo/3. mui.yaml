@@ -1,0 +1,76 @@
+title: mui
+version: 2
+demos:
+  - title: install
+    steps:
+      - action: executeTerminalCommand
+        command: npm install @mui/material @emotion/styled @mui/styled-engine --prefer-offline
+        terminalId: npm
+        autoExecute: true
+      - action: waitForTimeout
+        timeout: 1000
+  - title: add container
+    steps:
+      - action: insert
+        path: src/App.tsx
+        position: 2
+        content: |
+          import { Container } from "@mui/material"
+      - action: replace
+        path: src/App.tsx
+        insertTypingMode: line-by-line
+        startPlaceholder: <Viewer
+        endPlaceholder: />
+        content: |2-
+            <Container maxWidth="lg" sx={{ py: 4, textAlign: 'center' }}>
+              <Viewer />
+            </Container>
+  - title: add paper
+    steps:
+      - action: insert
+        path: src/Viewer.tsx
+        position: 8
+        content: |
+          import { Paper } from "@mui/material"
+      - action: replace
+        path: src/Viewer.tsx
+        insertTypingMode: line-by-line
+        startPlaceholder: '{Array.from'
+        endPlaceholder: '))}'
+        content: |2-
+                {Array.from({ length: numPages }, (_, index) => (
+                  <Paper
+                    key={index + 1}
+                    elevation={2}
+                    sx={{
+                      mb: 3,
+                      overflow: 'hidden',
+                      display: 'inline-block',
+                    }}
+                  >
+                    <ReactPDF.Page pageNumber={index + 1} />
+                  </Paper>
+                ))}
+  - title: fix layout
+    steps:
+      - action: replace
+        path: src/index.css
+        startPlaceholder: body {
+        endPlaceholder: 'h1'
+        content: |-
+          body {
+            margin: 0;
+            min-height: 100vh;
+          }
+
+          #root {
+            min-height: 100vh;
+          }
+
+          h1
+  - title: add extra page
+    steps:
+      - action: highlight
+        path: src/Document.tsx
+        startPlaceholder: <Page
+        endPlaceholder: </Page>
