@@ -1,11 +1,6 @@
 title: reset
 version: 2
 demos:
-  - title: stop vite
-    steps:
-      - action: executeTerminalCommand
-        command: q
-        terminalId: vite
   - title: reset source files
     steps:
       - action: executeTerminalCommand
