@@ -15,6 +15,10 @@ demos:
     steps:
       - action: create
         path: src/Document.tsx
+      - action: insert
+        position: start
+        insertTypingMode: line-by-line
+        path: src/Document.tsx
         content: |+
           import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
@@ -46,15 +50,8 @@ demos:
           );
 
           export default MyDocument;
-      - action: open
-        path: src/Document.tsx
-      
   - title: add Document to App
     steps:
-      - action: open
-        path: src/App.tsx
-      - action: executeVSCodeCommand
-        command: workbench.files.action.showActiveFileInExplorer
       - action: replace
         path: src/App.tsx
         insertTypingMode: line-by-line
@@ -72,8 +69,7 @@ demos:
           export default App     
   - title: (optional) fix deps
     steps:
-      - action: executeTerminalCommand
-        command: q
+      - action: closeTerminal
         terminalId: vite
       - action: executeTerminalCommand
         command: npm ci && npm run dev

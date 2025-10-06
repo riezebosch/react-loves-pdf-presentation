@@ -7,13 +7,9 @@ demos:
         command: npm install react-pdf react-use --prefer-offline
         terminalId: npm
         autoExecute: true
-      - action: waitForTimeout
-        timeout: 1000
   - title: create Viewer
     steps:
       - action: create
-        path: src/Viewer.tsx
-      - action: open
         path: src/Viewer.tsx
       - action: insert
         path: src/Viewer.tsx
@@ -59,10 +55,6 @@ demos:
           export default Viewer;
   - title: use Viewer in App
     steps:
-      - action: open
-        path: src/App.tsx
-      - action: executeVSCodeCommand
-        command: workbench.files.action.showActiveFileInExplorer
       - action: replace
         path: src/App.tsx
         insertTypingMode: line-by-line

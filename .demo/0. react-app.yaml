@@ -14,7 +14,7 @@ demos:
         terminalId: vite
         autoExecute: true
       - action: waitForTimeout
-        timeout: 1000
+        timeout: 3000
       - action: openWebsite
         url: http://localhost:5173/
         openInVSCode: false
